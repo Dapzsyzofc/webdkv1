@@ -7,13 +7,14 @@ import Gallery from './components/Gallery';
 import Footer from './components/Footer';
 import AdminPanel from './components/AdminPanel';
 import { useFirestore } from './hooks/useFirestore';
-import { defaultStudents, defaultTeacher, defaultSlogan, defaultGallery } from './data/defaultStudents';
+import { defaultStudents, defaultTeacher, defaultSlogan, defaultGallery, defaultSocials } from './data/defaultStudents';
 
 export default function App() {
   const [students, setStudents] = useFirestore('students', defaultStudents);
   const [teacher, setTeacher] = useFirestore('teacher', defaultTeacher);
   const [slogan, setSlogan] = useFirestore('slogan', defaultSlogan);
   const [gallery, setGallery] = useFirestore('gallery', defaultGallery);
+  const [socials, setSocials] = useFirestore('socials', defaultSocials);
   const [adminOpen, setAdminOpen] = useState(false);
 
   return (
@@ -37,7 +38,7 @@ export default function App() {
         <div className="section-divider max-w-5xl mx-auto" />
       </main>
 
-      <Footer slogan={slogan} />
+      <Footer slogan={slogan} socials={socials} />
 
       <AdminPanel
         isOpen={adminOpen}
@@ -50,6 +51,8 @@ export default function App() {
         setSlogan={setSlogan}
         gallery={gallery}
         setGallery={setGallery}
+        socials={socials}
+        setSocials={setSocials}
       />
     </div>
   );

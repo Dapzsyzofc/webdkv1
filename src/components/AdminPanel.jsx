@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Plus, Trash2, Edit3, Save, Lock, Users, GraduationCap, Type, Image } from 'lucide-react';
+import { X, Plus, Trash2, Edit3, Save, Lock, Users, GraduationCap, Type, Image, Share2 } from 'lucide-react';
+import { platformConfig } from './Footer';
 
 const ADMIN_PASSWORD = 'xidkv1admin';
 
-export default function AdminPanel({ isOpen, onClose, students, setStudents, teacher, setTeacher, slogan, setSlogan, gallery, setGallery }) {
+export default function AdminPanel({ isOpen, onClose, students, setStudents, teacher, setTeacher, slogan, setSlogan, gallery, setGallery, socials, setSocials }) {
     const [authenticated, setAuthenticated] = useState(false);
     const [password, setPassword] = useState('');
     const [activeTab, setActiveTab] = useState('students');
@@ -68,6 +69,7 @@ export default function AdminPanel({ isOpen, onClose, students, setStudents, tea
         { id: 'teacher', label: 'Wali Kelas', icon: GraduationCap },
         { id: 'slogan', label: 'Slogan', icon: Type },
         { id: 'gallery', label: 'Galeri', icon: Image },
+        { id: 'socials', label: 'Sosmed', icon: Share2 },
     ];
 
     return (
@@ -441,6 +443,45 @@ export default function AdminPanel({ isOpen, onClose, students, setStudents, tea
                                             </div>
                                         </div>
                                     )}
+
+                                    {/* ===== SOCIALS TAB ===== */}
+                                    {activeTab === 'socials' && (
+                                        <div>
+                                            <div className="glass rounded-xl p-4 mb-6">
+                                                <h4 className="text-white text-sm font-semibold mb-3 flex items-center gap-2">
+                                                    <Plus size={14} /> Tambah Sosial Media
+                                                </h4>
+                                                <SocialForm socials={socials} setSocials={setSocials} />
+                                            </div>
+
+                                            <h4 className="text-gray-400 text-xs uppercase tracking-wider mb-3">
+                                                Daftar Sosial Media ({socials.length})
+                                            </h4>
+                                            <div className="space-y-2">
+                                                {socials.map((social) => {
+                                                    const config = platformConfig[social.platform] || { label: social.platform };
+                                                    return (
+                                                        <div key={social.id} className="flex items-center gap-3 glass rounded-lg px-3 py-2">
+                                                            <div className="flex-1 min-w-0">
+                                                                <p className="text-white text-sm font-medium">{config.label}</p>
+                                                                <p className="text-gray-500 text-xs truncate">{social.url || '(belum ada link)'}</p>
+                                                            </div>
+                                                            <button
+                                                                onClick={() => {
+                                                                    if (confirm(`Hapus ${config.label}?`)) {
+                                                                        setSocials(socials.filter(s => s.id !== social.id));
+                                                                    }
+                                                                }}
+                                                                className="text-gray-400 hover:text-red-400 transition p-1"
+                                                            >
+                                                                <Trash2 size={14} />
+                                                            </button>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </>
                         )}
@@ -497,6 +538,62 @@ function GalleryForm({ gallery, setGallery }) {
             </label>
             <button
                 onClick={addGalleryItem}
+                className="w-full bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium rounded-lg py-2 transition flex items-center justify-center gap-2"
+            >
+                <Plus size={14} /> Tambah
+            </button>
+        </div>
+    );
+}
+
+function SocialForm({ socials, setSocials }) {
+    const [sForm, setSForm] = useState({ platform: 'instagram', url: '' });
+
+    const availablePlatforms = [
+        { value: 'instagram', label: '📸 Instagram' },
+        { value: 'youtube', label: '▶️ YouTube' },
+        { value: 'tiktok', label: '🎵 TikTok' },
+        { value: 'twitter', label: '🐦 Twitter / X' },
+        { value: 'facebook', label: '👤 Facebook' },
+        { value: 'linkedin', label: '💼 LinkedIn' },
+        { value: 'github', label: '💻 GitHub' },
+        { value: 'email', label: '📧 Email' },
+        { value: 'website', label: '🌐 Website' },
+    ];
+
+    const addSocial = () => {
+        setSocials([...socials, {
+            id: Date.now(),
+            platform: sForm.platform,
+            url: sForm.url.trim(),
+        }]);
+        setSForm({ platform: 'instagram', url: '' });
+    };
+
+    return (
+        <div className="space-y-3">
+            <div>
+                <label className="text-gray-400 text-xs mb-1 block">Platform</label>
+                <select
+                    value={sForm.platform}
+                    onChange={(e) => setSForm({ ...sForm, platform: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500 transition"
+                >
+                    {availablePlatforms.map((p) => (
+                        <option key={p.value} value={p.value} className="bg-[#111118]">
+                            {p.label}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            <input
+                value={sForm.url}
+                onChange={(e) => setSForm({ ...sForm, url: e.target.value })}
+                placeholder="URL link (contoh: https://instagram.com/kelaskita)"
+                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-purple-500 transition"
+            />
+            <button
+                onClick={addSocial}
                 className="w-full bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium rounded-lg py-2 transition flex items-center justify-center gap-2"
             >
                 <Plus size={14} /> Tambah

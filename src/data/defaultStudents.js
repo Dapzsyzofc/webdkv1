@@ -119,3 +119,9 @@ export const defaultGallery = [
     { id: 5, title: '🎵 Pentas Seni Sekolah', desc: '', photo: '' },
     { id: 6, title: '😂 Candid Gak Kira-kira', desc: '', photo: '' },
 ];
+
+export const defaultSocials = [
+    { id: 1, platform: 'instagram', url: '' },
+    { id: 2, platform: 'youtube', url: '' },
+    { id: 3, platform: 'tiktok', url: '' },
+];
