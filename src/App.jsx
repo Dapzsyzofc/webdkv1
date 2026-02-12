@@ -6,14 +6,14 @@ import StudentDirectory from './components/StudentDirectory';
 import Gallery from './components/Gallery';
 import Footer from './components/Footer';
 import AdminPanel from './components/AdminPanel';
-import { useLocalStorage } from './hooks/useLocalStorage';
+import { useFirestore } from './hooks/useFirestore';
 import { defaultStudents, defaultTeacher, defaultSlogan, defaultGallery } from './data/defaultStudents';
 
 export default function App() {
-  const [students, setStudents] = useLocalStorage('xdkv1-students', defaultStudents);
-  const [teacher, setTeacher] = useLocalStorage('xdkv1-teacher', defaultTeacher);
-  const [slogan, setSlogan] = useLocalStorage('xdkv1-slogan', defaultSlogan);
-  const [gallery, setGallery] = useLocalStorage('xdkv1-gallery', defaultGallery);
+  const [students, setStudents] = useFirestore('students', defaultStudents);
+  const [teacher, setTeacher] = useFirestore('teacher', defaultTeacher);
+  const [slogan, setSlogan] = useFirestore('slogan', defaultSlogan);
+  const [gallery, setGallery] = useFirestore('gallery', defaultGallery);
   const [adminOpen, setAdminOpen] = useState(false);
 
   return (
