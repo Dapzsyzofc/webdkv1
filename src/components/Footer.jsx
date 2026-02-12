@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Instagram, Youtube, Mail } from 'lucide-react';
 
-export default function Footer() {
+export default function Footer({ slogan }) {
     return (
         <footer className="py-16 px-6 text-center">
             <motion.div
@@ -11,12 +11,12 @@ export default function Footer() {
                 className="max-w-4xl mx-auto"
             >
                 <h3 className="font-[Playfair_Display] text-2xl md:text-3xl font-bold text-white mb-3">
-                    Beyond the Classroom:
+                    {slogan.footerMotto1 || 'Beyond the Classroom:'}
                     <br />
-                    <span className="gradient-text">A Legacy in the Making.</span>
+                    <span className="gradient-text">{slogan.footerMotto2 || 'A Legacy in the Making.'}</span>
                 </h3>
                 <p className="text-gray-500 text-sm mt-4 mb-8">
-                    Version 2.0: Better, Stronger, Together. 🚀
+                    {slogan.footerTagline || 'Version 2.0: Better, Stronger, Together. 🚀'}
                 </p>
 
                 <div className="flex justify-center gap-4 mb-8">
@@ -43,7 +43,7 @@ export default function Footer() {
                 <div className="section-divider max-w-xs mx-auto mb-6"></div>
 
                 <p className="text-gray-600 text-xs">
-                    © 2025 DKV 1 • Dibuat dengan 💜 oleh anak-anak kelas
+                    {slogan.footerCopyright || '© 2025 DKV 1 • Dibuat dengan 💜 oleh anak-anak kelas'}
                 </p>
             </motion.div>
         </footer>

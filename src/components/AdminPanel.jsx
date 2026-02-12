@@ -135,8 +135,8 @@ export default function AdminPanel({ isOpen, onClose, students, setStudents, tea
                                             key={tab.id}
                                             onClick={() => setActiveTab(tab.id)}
                                             className={`flex items-center gap-1.5 px-4 py-3 text-xs font-medium uppercase tracking-wider border-b-2 transition ${activeTab === tab.id
-                                                    ? 'border-purple-400 text-purple-400'
-                                                    : 'border-transparent text-gray-500 hover:text-gray-300'
+                                                ? 'border-purple-400 text-purple-400'
+                                                : 'border-transparent text-gray-500 hover:text-gray-300'
                                                 }`}
                                         >
                                             <tab.icon size={14} />
@@ -314,6 +314,96 @@ export default function AdminPanel({ isOpen, onClose, students, setStudents, tea
                                                     className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500 transition"
                                                 />
                                             </div>
+
+                                            <div className="border-t border-white/10 pt-4 mt-4">
+                                                <h4 className="text-white text-sm font-semibold mb-3">⏱️ Pengaturan Hari Bersama</h4>
+                                                <div>
+                                                    <label className="text-gray-400 text-xs mb-1 block">Tanggal mulai kelas (otomatis hitung hari)</label>
+                                                    <input
+                                                        type="date"
+                                                        value={slogan.startDate || ''}
+                                                        onChange={(e) => setSlogan({ ...slogan, startDate: e.target.value })}
+                                                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500 transition"
+                                                    />
+                                                    <p className="text-gray-500 text-xs mt-1">Counter akan otomatis dihitung dari tanggal ini sampai hari ini (WIB)</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="border-t border-white/10 pt-4 mt-4">
+                                                <h4 className="text-white text-sm font-semibold mb-3">📊 Label Statistik</h4>
+                                                <div className="space-y-3">
+                                                    <div>
+                                                        <label className="text-gray-400 text-xs mb-1 block">Label stat 1 (jumlah siswa)</label>
+                                                        <input
+                                                            value={slogan.stat1Label || ''}
+                                                            onChange={(e) => setSlogan({ ...slogan, stat1Label: e.target.value })}
+                                                            placeholder="Siswa"
+                                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500 transition"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className="text-gray-400 text-xs mb-1 block">Label stat 2</label>
+                                                        <input
+                                                            value={slogan.stat2Label || ''}
+                                                            onChange={(e) => setSlogan({ ...slogan, stat2Label: e.target.value })}
+                                                            placeholder="Wali Kelas"
+                                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500 transition"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className="text-gray-400 text-xs mb-1 block">Label stat 3 (hari bersama)</label>
+                                                        <input
+                                                            value={slogan.stat3Label || ''}
+                                                            onChange={(e) => setSlogan({ ...slogan, stat3Label: e.target.value })}
+                                                            placeholder="Hari Bersama"
+                                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500 transition"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="border-t border-white/10 pt-4 mt-4">
+                                                <h4 className="text-white text-sm font-semibold mb-3">🏠 Teks Footer</h4>
+                                                <div className="space-y-3">
+                                                    <div>
+                                                        <label className="text-gray-400 text-xs mb-1 block">Motto baris 1</label>
+                                                        <input
+                                                            value={slogan.footerMotto1 || ''}
+                                                            onChange={(e) => setSlogan({ ...slogan, footerMotto1: e.target.value })}
+                                                            placeholder="Beyond the Classroom:"
+                                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500 transition"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className="text-gray-400 text-xs mb-1 block">Motto baris 2 (gradient)</label>
+                                                        <input
+                                                            value={slogan.footerMotto2 || ''}
+                                                            onChange={(e) => setSlogan({ ...slogan, footerMotto2: e.target.value })}
+                                                            placeholder="A Legacy in the Making."
+                                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500 transition"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className="text-gray-400 text-xs mb-1 block">Tagline footer</label>
+                                                        <input
+                                                            value={slogan.footerTagline || ''}
+                                                            onChange={(e) => setSlogan({ ...slogan, footerTagline: e.target.value })}
+                                                            placeholder="Version 2.0: Better, Stronger, Together. 🚀"
+                                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500 transition"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className="text-gray-400 text-xs mb-1 block">Copyright</label>
+                                                        <input
+                                                            value={slogan.footerCopyright || ''}
+                                                            onChange={(e) => setSlogan({ ...slogan, footerCopyright: e.target.value })}
+                                                            placeholder="© 2025 DKV 1 • Dibuat dengan 💜"
+                                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500 transition"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <p className="text-green-400/70 text-xs mt-2">✓ Perubahan tersimpan otomatis</p>
                                         </div>
                                     )}

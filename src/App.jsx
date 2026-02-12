@@ -37,7 +37,7 @@ export default function App() {
         <div className="section-divider max-w-5xl mx-auto" />
       </main>
 
-      <Footer />
+      <Footer slogan={slogan} />
 
       <AdminPanel
         isOpen={adminOpen}

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 
@@ -14,7 +14,7 @@ function Counter({ target }) {
                 if (entry.isIntersecting && !counted.current) {
                     counted.current = true;
                     let current = 0;
-                    const step = Math.ceil(target / 40);
+                    const step = Math.max(1, Math.ceil(target / 40));
                     const timer = setInterval(() => {
                         current += step;
                         if (current >= target) {
@@ -34,7 +34,21 @@ function Counter({ target }) {
     return <span ref={ref} className="block text-3xl font-bold text-white">0</span>;
 }
 
+function getDaysTogether(startDateStr) {
+    try {
+        const start = new Date(startDateStr + 'T00:00:00+07:00');
+        const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
+        const diff = now - start;
+        const days = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
+        return days;
+    } catch {
+        return 0;
+    }
+}
+
 export default function Hero({ slogan, studentCount }) {
+    const daysTogether = useMemo(() => getDaysTogether(slogan.startDate), [slogan.startDate]);
+
     return (
         <section id="hero" className="relative min-h-screen flex items-center justify-center text-center px-6 overflow-hidden">
             {/* Floating Shapes */}
@@ -90,15 +104,15 @@ export default function Hero({ slogan, studentCount }) {
                 >
                     <div className="glass rounded-2xl px-8 py-5 relative stat-accent">
                         <Counter target={studentCount} />
-                        <span className="text-xs text-gray-400 uppercase tracking-wider">Siswa</span>
+                        <span className="text-xs text-gray-400 uppercase tracking-wider">{slogan.stat1Label || 'Siswa'}</span>
                     </div>
                     <div className="glass rounded-2xl px-8 py-5 relative stat-accent">
                         <Counter target={1} />
-                        <span className="text-xs text-gray-400 uppercase tracking-wider">Wali Kelas</span>
+                        <span className="text-xs text-gray-400 uppercase tracking-wider">{slogan.stat2Label || 'Wali Kelas'}</span>
                     </div>
                     <div className="glass rounded-2xl px-8 py-5 relative stat-accent">
-                        <Counter target={365} />
-                        <span className="text-xs text-gray-400 uppercase tracking-wider">Hari Bersama</span>
+                        <Counter target={daysTogether} />
+                        <span className="text-xs text-gray-400 uppercase tracking-wider">{slogan.stat3Label || 'Hari Bersama'}</span>
                     </div>
                 </motion.div>
 

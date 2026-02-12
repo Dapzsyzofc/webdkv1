@@ -101,6 +101,14 @@ export const defaultSlogan = {
     subtitle: 'Satu Frekuensi, Berjuta Cerita.',
     tagline: 'Turning chaos into memories, and dreams into reality.',
     year: 'Tahun Ajaran 2025/2026',
+    startDate: '2025-07-14',
+    stat1Label: 'Siswa',
+    stat2Label: 'Wali Kelas',
+    stat3Label: 'Hari Bersama',
+    footerMotto1: 'Beyond the Classroom:',
+    footerMotto2: 'A Legacy in the Making.',
+    footerTagline: 'Version 2.0: Better, Stronger, Together. 🚀',
+    footerCopyright: '© 2025 DKV 1 • Dibuat dengan 💜 oleh anak-anak kelas',
 };
 
 export const defaultGallery = [
